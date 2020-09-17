@@ -1,14 +1,16 @@
 <template>
-    <div>
+    <div class="container">
         <!-- Main content -->
-            <div class="row">
+            <div class="row justify-content-center col-8">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Category List</h3>
                         </div>
-                        <div class="card-tools mt-3">
-                            <button class="btn btn-primary float-right">Add Category</button>
+                        <div class="card-tools m-3">
+                            <button class="btn btn-primary float-right">
+                                <router-link style="color:white" to="/add-category">Add Category</router-link>
+                            </button>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
