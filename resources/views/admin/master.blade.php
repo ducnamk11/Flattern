@@ -38,10 +38,10 @@
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <a href="pages/widgets.html" class="nav-link">
+                        <router-link to="/category-list " class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p> Category </p>
-                        </a>
+                        </router-link>
                     </li>
                     <li class="nav-item">
                         <router-link to="/post" class="nav-link">
@@ -76,7 +76,6 @@
         </div>
 
         <section class="content">
-            <h1>Admin main</h1>
             <admin-main></admin-main>
         </section>
 
