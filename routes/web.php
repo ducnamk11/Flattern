@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //CATEGORY
 Route::post('/add-category', 'CategoryController@store');
+Route::get('/category/{id}', 'CategoryController@delete');
 Route::get('/category', 'CategoryController@index');
 
 

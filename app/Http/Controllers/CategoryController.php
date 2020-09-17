@@ -12,7 +12,7 @@ class CategoryController extends Controller
         $categories = Category::all();
         return response()->json([
             'categories' => $categories
-        ],200);
+        ], 200);
 
     }
 
@@ -26,6 +26,12 @@ class CategoryController extends Controller
         $category->cat_name = $request->cat_name;
         $category->save();
         return ['message' => 'OK'];
+    }
+
+    public function delete($id)
+    {
+        $category = Category::findOrFail($id);
+        $category->delete();
     }
 
 

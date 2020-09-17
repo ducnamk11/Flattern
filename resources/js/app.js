@@ -12,11 +12,8 @@ import storeData from "./store/index"
 const store = new Vuex.Store(
     storeData
 )
- //support Moment js
-import moment from 'moment'
-Vue.filter('timeformat',(arg)=>{
-    return moment(arg).format("MMM Do YY")
-})
+//support Moment js
+import {filter} from "./filter"
 
 // Vform
 import {AlertError, Form, HasError} from 'vform'
