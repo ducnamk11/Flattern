@@ -9,6 +9,8 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" >
 <div class="wrapper" id="app">
+    <h1>exte aaaaaaaaaaaaas</h1>
+    <example-component></example-component>
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
@@ -77,8 +79,10 @@
         <section class="content">
 
         </section>
+
         <!-- /.content -->
     </div>
+
     <!-- /.content-wrapper -->
     <footer class="main-footer">
         <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
