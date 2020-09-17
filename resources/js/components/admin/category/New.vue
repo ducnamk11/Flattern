@@ -8,14 +8,16 @@
                         Add New Category
                     </div>
                     <div class="card-body">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Category </label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Category">
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-
+                        <form role="form" @click.prevent="addCategory()">
+                            <div class="form-group">
+                                <label for="categoryId">Category </label>
+                                <input required type="text" class="form-control" id="categoryId"
+                                       placeholder="Enter Category" v-model="form.cat_name" name="cat_name">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
 
 
                     </div>
@@ -29,7 +31,32 @@
 
 <script>
     export default {
-        name: "New"
+        name: "New",
+        data() {
+            return {
+                // Create a new form instance
+                form: new Form({
+                    cat_name: '',
+                })
+            }
+
+        },
+        methods: {
+            addCategory() {
+                this.form.post('add-category')
+                    .then((response) => {
+                        this.$router.push('/category-list');
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Category Added in successfully'
+                        })
+                    })
+                    .catch((error) => {
+                                console.log(error);
+                    })
+            }
+        }
+
     }
 </script>
 

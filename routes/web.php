@@ -15,12 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+//Route::get('/{path}', 'HomeController@index')->where('path', '.*');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/{path}', 'HomeController@index')->where('path', '.*');
+//CATEGORY
+Route::post('/add-category', 'CategoryController@store');
+Route::get('/category', 'CategoryController@index');
+
+
+
 
 
