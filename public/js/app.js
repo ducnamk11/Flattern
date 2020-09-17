@@ -1761,8 +1761,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Edit"
+  name: "Edit",
+  data: function data() {
+    return {
+      // Create a new form instance
+      form: new Form({
+        cat_name: ''
+      })
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("/editcategory/".concat(this.$route.params.categoryid)).then(function (res) {
+      _this.form.fill(res.data.category);
+    })["catch"]();
+  },
+  methods: {}
 });
 
 /***/ }),
@@ -62728,11 +62772,88 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [
-    _vm._v("this is view vcate" + _vm._s(this.$route.params.categoryid))
+  return _c("div", { staticClass: "container" }, [
+    _c("h1", [
+      _vm._v("this is view vcate" + _vm._s(this.$route.params.categoryid))
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row justify-content-center col-8 " }, [
+      _c("div", { staticClass: "col-12 " }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("\n                   Edit Category\n                ")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "form",
+              {
+                attrs: { role: "form" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.addCategory()
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "categoryId" } }, [
+                    _vm._v("Category ")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.cat_name,
+                        expression: "form.cat_name"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      required: "",
+                      type: "text",
+                      id: "categoryId",
+                      placeholder: "Enter Category",
+                      name: "cat_name"
+                    },
+                    domProps: { value: _vm.form.cat_name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "cat_name", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _vm._m(0)
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Submit")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 

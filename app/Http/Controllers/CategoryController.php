@@ -28,6 +28,15 @@ class CategoryController extends Controller
         return ['message' => 'OK'];
     }
 
+    public function edit($id)
+    {
+        $category = Category::find($id);
+        return response()->json([
+            'category' => $category
+        ],200);
+
+    }
+
     public function delete($id)
     {
         $category = Category::findOrFail($id);
