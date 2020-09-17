@@ -7,10 +7,9 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
-<body class="hold-transition sidebar-mini layout-fixed" >
+<body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper" id="app">
-    <h1>exte aaaaaaaaaaaaas</h1>
-    <example-component></example-component>
+
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
@@ -31,12 +30,12 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview menu-open">
-                        <a href="#" class="nav-link active">
+                        <router-link to="/home" class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p> DashBoard
                                 <i class="right fas fa-angle-left"></i>
                             </p>
-                        </a>
+                        </router-link>
                     </li>
                     <li class="nav-item">
                         <a href="pages/widgets.html" class="nav-link">
@@ -45,10 +44,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="pages/widgets.html" class="nav-link">
+                        <router-link to="/post" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p> Post <span class="right badge badge-danger">New</span></p>
-                        </a>
+                        </router-link>
                     </li>
                 </ul>
             </nav>
@@ -77,7 +76,8 @@
         </div>
 
         <section class="content">
-
+            <h1>Admin main</h1>
+            <admin-main></admin-main>
         </section>
 
         <!-- /.content -->
