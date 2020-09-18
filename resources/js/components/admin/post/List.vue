@@ -30,10 +30,10 @@
                             <tr v-for="(post, index) in allpost" >
 
                                 <td>{{index+1}}</td>
-                                <td>{{post.user_id}}</td>
-                                <td>{{post.cat_id}}</td>
-                                <td>{{post.title}}</td>
-                                <td>{{post.description}}</td>
+                                <td v-if="post.user">{{post.user.name}}</td>
+                                <td v-if="post.category">{{post.category.cat_name}}</td>
+                                <td>{{post.title| sortlength(40,'...')}}</td>
+                                <td>{{post.description | sortlength(40,'...')}}</td>
                                 <td><img style="height:80px" :src="post.photo" alt=""></td>
                                 <td>
 
