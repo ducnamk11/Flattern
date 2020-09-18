@@ -12,7 +12,7 @@
                             <div class="form-group">
                                 <label for="TitleId">Title </label>
                                 <input required type="text" class="form-control" id="TitleId"
-                                       placeholder="Enter Category" v-model="form.cat_name" name="title">
+                                       placeholder="Enter Category" v-model="form.title" name="title">
                             </div>
                             <div class="form-group">
                                 <label for="descriptionId">Description </label>
@@ -22,7 +22,7 @@
                                 <label for="selectId">Select</label>
                                 <select id="selectId" class="form-control" v-model="form.cat_id">
                                     <option disabled value="">--Select--</option>
-                                    <option value="category.id" v-for="category in getallcategory">
+                                    <option :value="category.id" v-for="category in getallcategory">
                                         {{category.cat_name}}
                                     </option>
                                 </select>
@@ -40,7 +40,7 @@
                                         <span class="input-group-text" id="">Upload</span>
                                     </div>
                                 </div>
-                                <img class="mt-2" :src="form.photo" height="140px"  alt="">
+                                <img class="mt-2" :src="form.photo" height="140px" alt="">
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Save</button>
@@ -75,17 +75,14 @@
             }
         },
         methods: {
-            addCategory() {
-                this.form.post('/add-category')
-                    .then((response) => {
-                        this.$router.push('/category-list');
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Category Added in successfully'
+            addnewPost() {
+                this.form.post('/savepost')
+                    .then((res) => {
+                        this.$router.push('/postpost-list')
+                        Toast({
+                            type: 'success',
+                            title: 'Post Added successfully'
                         })
-                    })
-                    .catch((error) => {
-                        console.log(error);
                     })
             },
             changePhoto(event) {
@@ -93,7 +90,6 @@
                 let reader = new FileReader();
                 reader.onload = event => {
                     this.form.photo = event.target.result
-                    console.log(event.target.result)
                 };
                 reader.readAsDataURL(file);
             }

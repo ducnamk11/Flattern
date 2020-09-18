@@ -29,10 +29,10 @@ Route::get('/editcategory/{id}', 'CategoryController@edit');
 Route::post('/update-category/{id}', 'CategoryController@update');
 //Post
 Route::get('/post', 'PostController@index');
-Route::post('/add-category', 'CategoryController@store');
-Route::get('/category/{id}', 'CategoryController@delete');
-Route::get('/editcategory/{id}', 'CategoryController@edit');
-Route::post('/update-category/{id}', 'CategoryController@update');
+Route::post('/savepost', 'PostController@store');
+Route::get('/category/{id}', 'PostController@delete');
+Route::get('/editcategory/{id}', 'PostController@edit');
+Route::post('/update-category/{id}', 'PostController@update');
 
 
 

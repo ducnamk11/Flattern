@@ -4720,18 +4720,16 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    addCategory: function addCategory() {
+    addnewPost: function addnewPost() {
       var _this = this;
 
-      this.form.post('/add-category').then(function (response) {
-        _this.$router.push('/category-list');
+      this.form.post('/savepost').then(function (res) {
+        _this.$router.push('/postpost-list');
 
-        Toast.fire({
-          icon: 'success',
-          title: 'Category Added in successfully'
+        Toast({
+          type: 'success',
+          title: 'Post Added successfully'
         });
-      })["catch"](function (error) {
-        console.log(error);
       });
     },
     changePhoto: function changePhoto(event) {
@@ -4742,7 +4740,6 @@ __webpack_require__.r(__webpack_exports__);
 
       reader.onload = function (event) {
         _this2.form.photo = event.target.result;
-        console.log(event.target.result);
       };
 
       reader.readAsDataURL(file);
@@ -88173,8 +88170,8 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.form.cat_name,
-                        expression: "form.cat_name"
+                        value: _vm.form.title,
+                        expression: "form.title"
                       }
                     ],
                     staticClass: "form-control",
@@ -88185,13 +88182,13 @@ var render = function() {
                       placeholder: "Enter Category",
                       name: "title"
                     },
-                    domProps: { value: _vm.form.cat_name },
+                    domProps: { value: _vm.form.title },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.form, "cat_name", $event.target.value)
+                        _vm.$set(_vm.form, "title", $event.target.value)
                       }
                     }
                   })
@@ -88264,7 +88261,7 @@ var render = function() {
                       _vm._l(_vm.getallcategory, function(category) {
                         return _c(
                           "option",
-                          { attrs: { value: "category.id" } },
+                          { domProps: { value: category.id } },
                           [
                             _vm._v(
                               "\n                                    " +

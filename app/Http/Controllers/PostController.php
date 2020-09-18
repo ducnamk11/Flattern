@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -14,32 +15,21 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderByDesc('id')->with('user','category')->get();
+        $posts = Post::orderByDesc('id')->with('user', 'category')->get();
         return response()->json([
             'posts' => $posts,
-        ],200);
+        ], 200);
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $post = New Post();
+        $post->title = $request->title;
+        $post->description = $request->description;
+        $post->cat_id = $request->cat_id;
+        $post->user_id = Auth::user()->id;
+        $post->save();
     }
 
     /**
