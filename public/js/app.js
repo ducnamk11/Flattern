@@ -2130,7 +2130,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "List",
   mounted: function mounted() {
@@ -2186,15 +2185,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "New",
   data: function data() {
     return {
-      // Create a new form instance
       form: new Form({
-        cat_name: ''
+        title: '',
+        discription: '',
+        cat_id: '',
+        photo: ''
       })
     };
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('allCategory');
+  },
+  computed: {
+    getallcategory: function getallcategory() {
+      return this.$store.getters.getCategory;
+    }
   },
   methods: {
     addCategory: function addCategory() {
@@ -2210,6 +2244,19 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    changePhoto: function changePhoto(event) {
+      var _this2 = this;
+
+      var file = event.target.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function (event) {
+        _this2.form.photo = event.target.result;
+        console.log(event.target.result);
+      };
+
+      reader.readAsDataURL(file);
     }
   }
 });
@@ -63619,7 +63666,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center col-8 " }, [
+    _c("div", { staticClass: "row justify-content-center col-11 " }, [
       _c("div", { staticClass: "col-12 " }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
@@ -63630,18 +63677,18 @@ var render = function() {
             _c(
               "form",
               {
-                attrs: { role: "form" },
+                attrs: { role: "form", enctype: "multipart/form-data" },
                 on: {
-                  click: function($event) {
+                  submit: function($event) {
                     $event.preventDefault()
-                    return _vm.addCategory()
+                    return _vm.addnewPost()
                   }
                 }
               },
               [
                 _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "categoryId" } }, [
-                    _vm._v("Category ")
+                  _c("label", { attrs: { for: "TitleId" } }, [
+                    _vm._v("Title ")
                   ]),
                   _vm._v(" "),
                   _c("input", {
@@ -63657,9 +63704,9 @@ var render = function() {
                     attrs: {
                       required: "",
                       type: "text",
-                      id: "categoryId",
+                      id: "TitleId",
                       placeholder: "Enter Category",
-                      name: "cat_name"
+                      name: "title"
                     },
                     domProps: { value: _vm.form.cat_name },
                     on: {
@@ -63673,7 +63720,137 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _vm._m(0)
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "descriptionId" } }, [
+                    _vm._v("Description ")
+                  ]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.cat_name,
+                        expression: "form.cat_name"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      rows: "5",
+                      required: "",
+                      type: "text",
+                      id: "descriptionId",
+                      placeholder: "Enter Category",
+                      name: "description"
+                    },
+                    domProps: { value: _vm.form.cat_name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "cat_name", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "selectId" } }, [
+                    _vm._v("Select")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.cat_id,
+                          expression: "form.cat_id"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "selectId" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.form,
+                            "cat_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { disabled: "", value: "" } }, [
+                        _vm._v("--Select--")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.getallcategory, function(category) {
+                        return _c(
+                          "option",
+                          { attrs: { value: "category.id" } },
+                          [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(category.cat_name) +
+                                "\n                                "
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "photoId" } }, [_vm._v("Photo")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group" }, [
+                    _c("div", { staticClass: "custom-file" }, [
+                      _c("input", {
+                        staticClass: "custom-file-input",
+                        attrs: { type: "file", id: "photoId" },
+                        on: {
+                          change: function($event) {
+                            return _vm.changePhoto($event)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-file-label",
+                          attrs: { for: "photoId" }
+                        },
+                        [_vm._v("Choose file")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ]),
+                  _vm._v(" "),
+                  _c("img", {
+                    staticClass: "mt-2",
+                    attrs: { src: _vm.form.photo, height: "140px", alt: "" }
+                  })
+                ]),
+                _vm._v(" "),
+                _vm._m(1)
               ]
             )
           ])
@@ -63687,11 +63864,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("Upload")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
       _c(
         "button",
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Submit")]
+        [_vm._v("Save")]
       )
     ])
   }

@@ -36,7 +36,6 @@
                                 <td>{{post.description | sortlength(40,'...')}}</td>
                                 <td><img style="height:80px" :src="post.photo" alt=""></td>
                                 <td>
-
                                     <a href="" :key="post.id" class="btn btn-success">Edit</a>
                                     <a href="" class="btn btn-danger  ">Delete</a>
                                 </td>
