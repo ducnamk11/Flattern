@@ -1,15 +1,14 @@
- <template>
+<template>
     <div class="container">
-        <h1>this is view vcate{{this.$route.params.categoryid}}</h1>
         <!-- Main content -->
         <div class="row justify-content-center col-8 ">
             <div class="col-12 ">
                 <div class="card">
                     <div class="card-header">
-                       Edit Category
+                        Add New Category
                     </div>
                     <div class="card-body">
-                        <form role="form" @submit.prevent="updateCategory()">
+                        <form role="form" @click.prevent="addCategory()">
                             <div class="form-group">
                                 <label for="categoryId">Category </label>
                                 <input required type="text" class="form-control" id="categoryId"
@@ -32,7 +31,7 @@
 
 <script>
     export default {
-        name: "Edit",
+        name: "New",
         data() {
             return {
                 // Create a new form instance
@@ -42,22 +41,14 @@
             }
 
         },
-        mounted(){
-            axios.get(`/editcategory/${this.$route.params.categoryid}`)
-            .then((res)=>{
-                this.form.fill(res.data.category);
-            })
-            .catch()
-        }
-        ,
         methods: {
-            updateCategory() {
-                this.form.post(`/update-category/${this.$route.params.categoryid}`)
+            addCategory() {
+                this.form.post('/add-category')
                     .then((response) => {
                         this.$router.push('/category-list');
                         Toast.fire({
                             icon: 'success',
-                            title: 'Category updated in successfully'
+                            title: 'Category Added in successfully'
                         })
                     })
                     .catch((error) => {
