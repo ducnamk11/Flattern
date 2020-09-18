@@ -16,9 +16,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="descriptionId">Description </label>
-                                <textarea rows="5" required type="text" class="form-control" id="descriptionId"
-                                          placeholder="Enter Category" v-model="form.cat_name"
-                                          name="description"></textarea>
+                                <markdown-editor v-model="form.description"></markdown-editor>
                             </div>
                             <div class="form-group">
                                 <label for="selectId">Select</label>
@@ -28,6 +26,7 @@
                                         {{category.cat_name}}
                                     </option>
                                 </select>
+
                             </div>
                             <div class="form-group">
                                 <label for="photoId">Photo</label>

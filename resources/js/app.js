@@ -3,8 +3,14 @@ require('./bootstrap');
 window.Vue = require('vue');
 import VueRouter from 'vue-router';
 import {routes} from './routes';
-
 import AdminMain from "./components/admin/AdminMaster";
+
+//EDITOR SUPPORT
+import 'v-markdown-editor/dist/v-markdown-editor.css';
+import Vue from 'vue'
+import Editor from 'v-markdown-editor'
+Vue.use(Editor);
+
 //VUEX
 import Vuex from 'vuex'
 Vue.use(Vuex)
