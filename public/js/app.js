@@ -4581,7 +4581,7 @@ __webpack_require__.r(__webpack_exports__);
     updatePost: function updatePost() {
       var _this2 = this;
 
-      axios.get("/post/".concat(this.$route.params.postid)).then(function (res) {
+      this.form.post("/update/".concat(this.$route.params.postid)).then(function (res) {
         _this2.$router.push('/post-list');
 
         Toast.fire({

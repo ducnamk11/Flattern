@@ -32,7 +32,7 @@ Route::get('/post', 'PostController@index');
 Route::post('/savepost', 'PostController@store');
 Route::get('/delete/{id}', 'PostController@delete');
 Route::get('/post/{id}', 'PostController@edit');
-Route::post('/update-category/{id}', 'PostController@update');
+Route::post('/update/{id}', 'PostController@update');
 
 
 

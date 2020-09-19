@@ -93,7 +93,7 @@
 
             },
             updatePost() {
-                axios.get(`/post/${this.$route.params.postid}`)
+                this.form.post(`/update/${this.$route.params.postid}`)
                     .then((res) => {
                         this.$router.push('/post-list');
                         Toast.fire({
