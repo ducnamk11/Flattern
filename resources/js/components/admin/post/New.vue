@@ -60,7 +60,7 @@
             return {
                 form: new Form({
                     title: '',
-                    discription: '',
+                    description: '',
                     cat_id: '',
                     photo: '',
                 })

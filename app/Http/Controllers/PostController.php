@@ -9,11 +9,7 @@ use Image;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $posts = Post::orderByDesc('id')->with('user', 'category')->get();
@@ -46,18 +42,16 @@ class PostController extends Controller
     }
 
 
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+        $post  =Post::find($id);
+        return response()->json([
+            'post' => $post,
+        ], 200);
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Post $post
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Post $post)
     {
         //

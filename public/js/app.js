@@ -4516,37 +4516,101 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Edit",
   data: function data() {
     return {
-      // Create a new form instance
       form: new Form({
-        cat_name: ''
+        title: '',
+        description: '',
+        cat_id: '',
+        photo: ''
       })
     };
   },
   mounted: function mounted() {
+    this.$store.dispatch('allCategory');
+  },
+  created: function created() {
     var _this = this;
 
-    axios.get("/editcategory/".concat(this.$route.params.categoryid)).then(function (res) {
-      _this.form.fill(res.data.category);
-    })["catch"]();
+    axios.get("post/".concat(this.$route.params.postid)).then(function (response) {
+      console.log(response.data);
+
+      _this.form.fill(response.data.post);
+    });
+  },
+  computed: {
+    getallcategory: function getallcategory() {
+      return this.$store.getters.getCategory;
+    }
   },
   methods: {
-    updateCategory: function updateCategory() {
+    updateImage: function updateImage() {
+      var img = this.form.photo;
+
+      if (img.length > 100) {
+        return this.form.photo;
+      } else {
+        return "uploadimage/" + this.form.photo;
+      }
+    },
+    updatePost: function updatePost() {
       var _this2 = this;
 
-      this.form.post("/update-category/".concat(this.$route.params.categoryid)).then(function (response) {
-        _this2.$router.push('/category-list');
+      axios.get("/post/".concat(this.$route.params.postid)).then(function (res) {
+        _this2.$router.push('/post-list');
 
         Toast.fire({
           type: 'success',
-          title: 'Category updated in successfully'
+          title: 'Post updated successfully'
         });
-      })["catch"](function (error) {
-        console.log(error);
       });
+    },
+    changePhoto: function changePhoto(event) {
+      var _this3 = this;
+
+      var file = event.target.files[0];
+
+      if (file.size > 4048576) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Size image is wrong!',
+          footer: '<a href>Why do I have this issue?</a>'
+        });
+      } else {
+        var reader = new FileReader();
+
+        reader.onload = function (event) {
+          _this3.form.photo = event.target.result;
+        };
+
+        reader.readAsDataURL(file);
+      }
     }
   }
 });
@@ -4721,7 +4785,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: new Form({
         title: '',
-        discription: '',
+        description: '',
         cat_id: '',
         photo: ''
       })
@@ -87909,33 +87973,29 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("h1", [
-      _vm._v("this is view vcate" + _vm._s(this.$route.params.categoryid))
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row justify-content-center col-8 " }, [
+    _c("div", { staticClass: "row justify-content-center col-11 " }, [
       _c("div", { staticClass: "col-12 " }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _vm._v("\n                   Edit Category\n                ")
+            _vm._v("\n                    Edit post\n                ")
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c(
               "form",
               {
-                attrs: { role: "form" },
+                attrs: { role: "form", enctype: "multipart/form-data" },
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
-                    return _vm.updateCategory()
+                    return _vm.updatePost()
                   }
                 }
               },
               [
                 _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "categoryId" } }, [
-                    _vm._v("Category ")
+                  _c("label", { attrs: { for: "TitleId" } }, [
+                    _vm._v("Title ")
                   ]),
                   _vm._v(" "),
                   _c("input", {
@@ -87943,31 +88003,147 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.form.cat_name,
-                        expression: "form.cat_name"
+                        value: _vm.form.title,
+                        expression: "form.title"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: {
                       required: "",
                       type: "text",
-                      id: "categoryId",
+                      id: "TitleId",
                       placeholder: "Enter Category",
-                      name: "cat_name"
+                      name: "title"
                     },
-                    domProps: { value: _vm.form.cat_name },
+                    domProps: { value: _vm.form.title },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.form, "cat_name", $event.target.value)
+                        _vm.$set(_vm.form, "title", $event.target.value)
                       }
                     }
                   })
                 ]),
                 _vm._v(" "),
-                _vm._m(0)
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", { attrs: { for: "descriptionId" } }, [
+                      _vm._v("Description ")
+                    ]),
+                    _vm._v(" "),
+                    _c("markdown-editor", {
+                      model: {
+                        value: _vm.form.description,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "description", $$v)
+                        },
+                        expression: "form.description"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "selectId" } }, [
+                    _vm._v("Select")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.cat_id,
+                          expression: "form.cat_id"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "selectId" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.form,
+                            "cat_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { disabled: "", value: "" } }, [
+                        _vm._v("--Select--")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.getallcategory, function(category) {
+                        return _c(
+                          "option",
+                          { domProps: { value: category.id } },
+                          [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(category.cat_name) +
+                                "\n                                "
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "photoId" } }, [_vm._v("Photo")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group" }, [
+                    _c("div", { staticClass: "custom-file" }, [
+                      _c("input", {
+                        staticClass: "custom-file-input",
+                        attrs: { type: "file", id: "photoId" },
+                        on: {
+                          change: function($event) {
+                            return _vm.changePhoto($event)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-file-label",
+                          attrs: { for: "photoId" }
+                        },
+                        [_vm._v("Choose file")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ]),
+                  _vm._v(" "),
+                  _c("img", {
+                    staticClass: "mt-2",
+                    attrs: { src: _vm.updateImage(), height: "140px", alt: "" }
+                  })
+                ]),
+                _vm._v(" "),
+                _vm._m(1)
               ]
             )
           ])
@@ -87981,11 +88157,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("Upload")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
       _c(
         "button",
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Submit")]
+        [_vm._v("Update")]
       )
     ])
   }
@@ -88080,25 +88266,34 @@ var render = function() {
                         })
                       ]),
                       _vm._v(" "),
-                      _c("td", [
-                        _c("a", { key: post.id, attrs: { href: "" } }, [
-                          _vm._v("Edit")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: "" },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.deletePost(post.id)
+                      _c(
+                        "td",
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              key: post.id,
+                              attrs: { to: "/edit-post/" + post.id }
+                            },
+                            [_vm._v("Edit")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.deletePost(post.id)
+                                }
                               }
-                            }
-                          },
-                          [_vm._v("Delete")]
-                        )
-                      ])
+                            },
+                            [_vm._v("Delete")]
+                          )
+                        ],
+                        1
+                      )
                     ])
                   }),
                   0
