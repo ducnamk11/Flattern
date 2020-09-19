@@ -38,15 +38,15 @@
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/category-list " class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p> Category </p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
                         <router-link to="/post-list" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p> Post <span class="right badge badge-danger">New</span></p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/category-list" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p> Category <span class="right badge badge-danger">New</span></p>
                         </router-link>
                     </li>
                 </ul>

@@ -4395,7 +4395,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.$store.dispatch("allCategory");
 
         Toast.fire({
-          icon: 'success',
+          type: 'success',
           title: 'Category Deleted in successfully'
         });
       })["catch"]();
