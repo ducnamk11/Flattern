@@ -36,8 +36,8 @@
                                 <td>{{post.description | sortlength(40,'...')}}</td>
                                 <td><img style="height:80px" :src="ourImage(post.photo)" alt=""></td>
                                 <td>
-                                    <a href="" :key="post.id" class="btn btn-success">Edit</a>
-                                    <a href="" class="btn btn-danger  ">Delete</a>
+                                    <a href="" :key="post.id">Edit</a>
+                                    <a href="" @click.prevent="deletePost(post.id)">Delete</a>
                                 </td>
 
                             </tr>
@@ -70,6 +70,17 @@
         methods: {
             ourImage(img) {
                 return "uploadimage/" + img;
+            },
+            deletePost(id) {
+                axios.get('/delete/' + id)
+                    .then(() => {
+                        this.$store.dispatch('getAllPost')
+                        Toast.fire({
+                            type: 'success',
+                            title: 'Post deleted successfully'
+                        })
+                    })
+                    .catch()
             }
         }
     }

@@ -4633,6 +4633,18 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     ourImage: function ourImage(img) {
       return "uploadimage/" + img;
+    },
+    deletePost: function deletePost(id) {
+      var _this = this;
+
+      axios.get('/delete/' + id).then(function () {
+        _this.$store.dispatch('getAllPost');
+
+        Toast.fire({
+          type: 'success',
+          title: 'Post deleted successfully'
+        });
+      })["catch"]();
     }
   }
 });
@@ -88069,21 +88081,20 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("td", [
-                        _c(
-                          "a",
-                          {
-                            key: post.id,
-                            staticClass: "btn btn-success",
-                            attrs: { href: "" }
-                          },
-                          [_vm._v("Edit")]
-                        ),
+                        _c("a", { key: post.id, attrs: { href: "" } }, [
+                          _vm._v("Edit")
+                        ]),
                         _vm._v(" "),
                         _c(
                           "a",
                           {
-                            staticClass: "btn btn-danger  ",
-                            attrs: { href: "" }
+                            attrs: { href: "" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.deletePost(post.id)
+                              }
+                            }
                           },
                           [_vm._v("Delete")]
                         )

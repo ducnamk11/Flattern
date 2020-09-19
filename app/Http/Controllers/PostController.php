@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Image;
 
 class PostController extends Controller
 {
@@ -25,17 +25,17 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'title'=>'required|min:2|max:50',
-            'description'=>'required|min:2|max:1000'
+        $this->validate($request, [
+            'title' => 'required|min:2|max:50',
+            'description' => 'required|min:2|max:1000'
         ]);
-        $strpos = strpos($request->photo,';');
-        $sub = substr($request->photo,0,$strpos);
-        $ex = explode('/',$sub)[1];
-        $name = time().".".$ex;
+        $strpos = strpos($request->photo, ';');
+        $sub = substr($request->photo, 0, $strpos);
+        $ex = explode('/', $sub)[1];
+        $name = time() . "." . $ex;
         $img = Image::make($request->photo)->resize(200, 200);
-        $upload_path = public_path()."/uploadimage/";
-        $img->save($upload_path.$name);
+        $upload_path = public_path() . "/uploadimage/";
+        $img->save($upload_path . $name);
         $post = new Post();
         $post->title = $request->title;
         $post->description = $request->description;
@@ -45,23 +45,7 @@ class PostController extends Controller
         $post->save();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Post $post
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Post $post)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Post $post
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Post $post)
     {
         //
@@ -79,14 +63,14 @@ class PostController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Post $post
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Post $post)
+    public function delete($id)
     {
-        //
+        $post = Post::find($id);
+        $image_path = public_path() . '/uploadimage/';
+        $image = $image_path . $post->photo;
+        if (file_exists($image)) {
+            @unlink($image);
+        };
+        $post->delete();
     }
 }
