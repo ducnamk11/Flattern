@@ -27,14 +27,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="(post, index) in allpost" >
+                            <tr v-for="(post, index) in allpost">
 
                                 <td>{{index+1}}</td>
                                 <td v-if="post.user">{{post.user.name}}</td>
                                 <td v-if="post.category">{{post.category.cat_name}}</td>
                                 <td>{{post.title| sortlength(40,'...')}}</td>
                                 <td>{{post.description | sortlength(40,'...')}}</td>
-                                <td><img style="height:80px" :src="post.photo" alt=""></td>
+                                <td><img style="height:80px" :src="ourImage(post.photo)" alt=""></td>
                                 <td>
                                     <a href="" :key="post.id" class="btn btn-success">Edit</a>
                                     <a href="" class="btn btn-danger  ">Delete</a>
@@ -63,11 +63,15 @@
             this.$store.dispatch('getAllPost')
         },
         computed: {
-            allpost(){
+            allpost() {
                 return this.$store.getters.getAllPost
             }
         },
-        methods: {}
+        methods: {
+            ourImage(img) {
+                return "uploadimage/" + img;
+            }
+        }
     }
 </script>
 

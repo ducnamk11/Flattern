@@ -4304,7 +4304,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.$router.push('/category-list');
 
         Toast.fire({
-          icon: 'success',
+          type: 'success',
           title: 'Category updated in successfully'
         });
       })["catch"](function (error) {
@@ -4463,8 +4463,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.$router.push('/category-list');
 
         Toast.fire({
-          icon: 'success',
-          title: 'Category Added in successfully'
+          type: 'success',
+          title: 'Category Added successfully'
         });
       })["catch"](function (error) {
         console.log(error);
@@ -4541,7 +4541,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.$router.push('/category-list');
 
         Toast.fire({
-          icon: 'success',
+          type: 'success',
           title: 'Category updated in successfully'
         });
       })["catch"](function (error) {
@@ -4630,7 +4630,11 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.getAllPost;
     }
   },
-  methods: {}
+  methods: {
+    ourImage: function ourImage(img) {
+      return "uploadimage/" + img;
+    }
+  }
 });
 
 /***/ }),
@@ -4724,9 +4728,9 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.form.post('/savepost').then(function (res) {
-        _this.$router.push('/postpost-list');
+        _this.$router.push('/post-list');
 
-        Toast({
+        Toast.fire({
           type: 'success',
           title: 'Post Added successfully'
         });
@@ -4736,13 +4740,23 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       var file = event.target.files[0];
-      var reader = new FileReader();
 
-      reader.onload = function (event) {
-        _this2.form.photo = event.target.result;
-      };
+      if (file.size > 4048576) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Size image is wrong!',
+          footer: '<a href>Why do I have this issue?</a>'
+        });
+      } else {
+        var reader = new FileReader();
 
-      reader.readAsDataURL(file);
+        reader.onload = function (event) {
+          _this2.form.photo = event.target.result;
+        };
+
+        reader.readAsDataURL(file);
+      }
     }
   }
 });
@@ -88050,7 +88064,7 @@ var render = function() {
                       _c("td", [
                         _c("img", {
                           staticStyle: { height: "80px" },
-                          attrs: { src: post.photo, alt: "" }
+                          attrs: { src: _vm.ourImage(post.photo), alt: "" }
                         })
                       ]),
                       _vm._v(" "),

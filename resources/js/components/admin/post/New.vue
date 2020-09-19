@@ -78,20 +78,30 @@
             addnewPost() {
                 this.form.post('/savepost')
                     .then((res) => {
-                        this.$router.push('/postpost-list')
-                        Toast({
+                        this.$router.push('/post-list');
+                        Toast.fire({
                             type: 'success',
                             title: 'Post Added successfully'
                         })
+
                     })
             },
             changePhoto(event) {
                 let file = event.target.files[0];
-                let reader = new FileReader();
-                reader.onload = event => {
-                    this.form.photo = event.target.result
-                };
-                reader.readAsDataURL(file);
+                if (file.size > 4048576) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Size image is wrong!',
+                        footer: '<a href>Why do I have this issue?</a>'
+                    })
+                } else {
+                    let reader = new FileReader();
+                    reader.onload = event => {
+                        this.form.photo = event.target.result
+                    };
+                    reader.readAsDataURL(file);
+                }
             }
         }
 

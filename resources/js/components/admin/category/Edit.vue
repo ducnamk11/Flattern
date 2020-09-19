@@ -56,7 +56,7 @@
                     .then((response) => {
                         this.$router.push('/category-list');
                         Toast.fire({
-                            icon: 'success',
+                            type: 'success',
                             title: 'Category updated in successfully'
                         })
                     })
