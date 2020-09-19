@@ -21,18 +21,21 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::group(['middleware'=>['auth']],function (){
+
 //CATEGORY
-Route::post('/add-category', 'CategoryController@store');
-Route::get('/category', 'CategoryController@index');
-Route::get('/category/{id}', 'CategoryController@delete');
-Route::get('/editcategory/{id}', 'CategoryController@edit');
-Route::post('/update-category/{id}', 'CategoryController@update');
+    Route::post('/add-category', 'CategoryController@store');
+    Route::get('/category', 'CategoryController@index');
+    Route::get('/category/{id}', 'CategoryController@delete');
+    Route::get('/editcategory/{id}', 'CategoryController@edit');
+    Route::post('/update-category/{id}', 'CategoryController@update');
 //Post
-Route::get('/post', 'PostController@index');
-Route::post('/savepost', 'PostController@store');
-Route::get('/delete/{id}', 'PostController@delete');
-Route::get('/post/{id}', 'PostController@edit');
-Route::post('/update/{id}', 'PostController@update');
+    Route::get('/post', 'PostController@index');
+    Route::post('/savepost', 'PostController@store');
+    Route::get('/delete/{id}', 'PostController@delete');
+    Route::get('/post/{id}', 'PostController@edit');
+    Route::post('/update/{id}', 'PostController@update');
+});
 
 
 
