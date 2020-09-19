@@ -6,7 +6,17 @@ import PostList from "./components/admin/post/List";
 import AddPost from "./components/admin/post/New";
 import EditPost from "./components/admin/post/Edit";
 
+//FRONT END
+import PublicHome from "./components/public/PublicHome";
+ import BlogPost from "./components/public/blog/BlogPost";
+
 export const routes = [
+
+    //FRONT ROUTER
+    {path: '/', component: PublicHome },
+    {path: '/blog', component: BlogPost },
+
+    //BACKEND
     {path: '/home', component: AdminHome},
     // CATEGORY
     {path: '/category-list', component: CategoryList},
@@ -16,4 +26,6 @@ export const routes = [
     {path: '/post-list', component: PostList},
     {path: '/add-post', component: AddPost },
     {path: '/edit-post/:postid', component: EditPost },
+
+
 ]

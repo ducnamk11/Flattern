@@ -4,6 +4,7 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router';
 import {routes} from './routes';
 import AdminMain from "./components/admin/AdminMaster";
+import PublicMaster from "./components/public/PublicMaster";
 
 //EDITOR SUPPORT
 import 'v-markdown-editor/dist/v-markdown-editor.css';
@@ -25,6 +26,7 @@ import {filter} from "./filter"
 import {AlertError, Form, HasError} from 'vform'
 Vue.use(VueRouter);
 Vue.component('admin-main', AdminMain);
+Vue.component('home-main', PublicMaster);
 window.Form = Form;
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
