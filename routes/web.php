@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware'=>['auth']],function (){
+Route::group(['middleware' => ['auth']], function () {
 
 //CATEGORY
     Route::post('/add-category', 'CategoryController@store');
@@ -35,6 +35,8 @@ Route::group(['middleware'=>['auth']],function (){
     Route::get('/delete/{id}', 'PostController@delete');
     Route::get('/post/{id}', 'PostController@edit');
     Route::post('/update/{id}', 'PostController@update');
+    //Blog
+    Route::get('/blogpost', 'BlogController@get_all_blog_post');
 });
 
 

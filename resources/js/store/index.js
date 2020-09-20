@@ -1,7 +1,8 @@
 export default {
     state: {
         category: [],
-        post: []
+        post: [],
+        blogpost: []
 
     },
     getters: {
@@ -10,6 +11,9 @@ export default {
         },
         getAllPost(state) {
             return state.post
+        },
+        getblogPost(state) {
+            return state.blogpost
         }
 
     },
@@ -28,7 +32,16 @@ export default {
                 .catch((err) => {
 
                 })
+        },
+        getblogPost(context) {
+            axios.get('/blogpost')
+                .then((res) => {
+                    context.commit('getblogPost', res.data.posts);
 
+                })
+                .catch((err) => {
+
+                })
         }
     },
     mutations: {
@@ -37,6 +50,9 @@ export default {
         },
         allpost(state, payload) {
             return state.post = payload
+        },
+        getblogPost(state, payload) {
+            return state.blogpost = payload
         }
     },
 
