@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/update/{id}', 'PostController@update');
     //Blog
     Route::get('/blogpost', 'BlogController@get_all_blog_post');
+    Route::get('/singlepost/{id}', 'BlogController@get_post_by_id');
 });
 
 

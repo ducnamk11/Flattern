@@ -8,24 +8,26 @@ import EditPost from "./components/admin/post/Edit";
 
 //FRONT END
 import PublicHome from "./components/public/PublicHome";
- import BlogPost from "./components/public/blog/BlogPost";
+import BlogPost from "./components/public/blog/BlogPost";
+import SingleBlog from "./components/public/blog/SingleBlog";
 
 export const routes = [
 
     //FRONT ROUTER
-    {path: '/', component: PublicHome },
-    {path: '/blog', component: BlogPost },
+    {path: '/', component: PublicHome},
+    {path: '/blog', component: BlogPost},
+    {path: '/blog/:id', component: SingleBlog},
 
     //BACKEND
     {path: '/home', component: AdminHome},
     // CATEGORY
     {path: '/category-list', component: CategoryList},
-    {path: '/add-category', component: AddCategory },
-    {path: '/edit-category/:categoryid', component: EditCategory },
+    {path: '/add-category', component: AddCategory},
+    {path: '/edit-category/:categoryid', component: EditCategory},
     //POST
     {path: '/post-list', component: PostList},
-    {path: '/add-post', component: AddPost },
-    {path: '/edit-post/:postid', component: EditPost },
+    {path: '/add-post', component: AddPost},
+    {path: '/edit-post/:postid', component: EditPost},
 
 
 ]
