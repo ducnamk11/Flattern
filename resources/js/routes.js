@@ -10,6 +10,7 @@ import EditPost from "./components/admin/post/Edit";
 import PublicHome from "./components/public/PublicHome";
 import BlogPost from "./components/public/blog/BlogPost";
 import SingleBlog from "./components/public/blog/SingleBlog";
+import ListPostbyCategorys from "./components/public/blog/ListPostbyCategory";
 
 export const routes = [
 
@@ -17,6 +18,7 @@ export const routes = [
     {path: '/', component: PublicHome},
     {path: '/blog', component: BlogPost},
     {path: '/blog/:id', component: SingleBlog},
+    {path: '/category/:id', component: ListPostbyCategorys},
 
     //BACKEND
     {path: '/home', component: AdminHome},

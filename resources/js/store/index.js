@@ -3,9 +3,10 @@ export default {
         category: [],
         post: [],
         blogpost: [],
-        singlepost: [],
+        singlepost : [],
         allcategory: [],
         latestpost: [],
+        listpostbycategory: [],
 
     },
     getters: {
@@ -26,6 +27,9 @@ export default {
         },
         latestpost(state) {
             return state.latestpost
+        },
+        listpostbycategory(state) {
+            return state.listpostbycategory
         }
 
     },
@@ -58,7 +62,7 @@ export default {
         getPostbyId(context, payload) {
             axios.get('/singlepost/' + payload)
                 .then((res) => {
-                    console.log('getPostbyId', res.data)
+                    console.log('getPostbyId', res.data.post.id)
                     context.commit('singlePost', res.data.post);
 
                 })
@@ -82,6 +86,12 @@ export default {
                 .then((res)=>{
                     context.commit('getLatestPost', res.data.latestpost)
                 })
+        },
+        getPostByCategory(context,payload){
+            axios.get('/listpostbycategory/'+payload)
+                .then((res)=>{
+                    context.commit('getpostbycategory', res.data.getpostbycategory)
+                })
         }
 
     },
@@ -103,6 +113,9 @@ export default {
         },
         getLatestPost(state, payload) {
             return state.latestpost = payload
+        },
+        getpostbycategory(state, payload) {
+            return state.listpostbycategory = payload
         },
 
     },

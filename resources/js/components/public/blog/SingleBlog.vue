@@ -5,7 +5,6 @@
                 <div class="row">
                     <div class="span8">
                         <article>
-                            this is {{singlepost}}
                             <div class="row">
                                 <div class="span8">
                                     <div class="post-image">
@@ -13,7 +12,7 @@
                                             <h3><a href="#">{{singlepost.title}}</a>
                                             </h3>
                                         </div>
-                                        <img :src=" `/uploadimage/${singlepost.photo}`" alt=""/>
+                                        <img :src="`uploadimage/${singlepost.photo}`" alt=""/>
                                     </div>
                                     <p>{{singlepost.description}} </p>
                                     <div class="bottom-article">
@@ -32,7 +31,9 @@
                         <div class="comment-area">
                             <h4>4 Comments</h4>
                             <div class="media">
-                                <a href="#" class="thumbnail pull-left"><img src="img/avatar.png" alt=""/></a>
+                                <a href="#" class="thumbnail pull-left"><img
+                                    src="https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg"
+                                    alt=""/></a>
                                 <div class="media-body">
                                     <div class="media-content">
                                         <h6><span>March 12, 2013</span> Karen medisson</h6>
@@ -47,7 +48,9 @@
                                 </div>
                             </div>
                             <div class="media">
-                                <a href="#" class="thumbnail pull-left"><img src="img/avatar.png" alt=""/></a>
+                                <a href="#" class="thumbnail pull-left"><img
+                                    src="https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg"
+                                    alt=""/></a>
                                 <div class="media-body">
                                     <div class="media-content">
                                         <h6><span>March 12, 2013</span> Smith sanderson</h6>
@@ -60,7 +63,9 @@
                                         <a href="#" class="align-right">Reply comment</a>
                                     </div>
                                     <div class="media">
-                                        <a href="#" class="thumbnail pull-left"><img src="img/avatar.png" alt=""/></a>
+                                        <a href="#" class="thumbnail pull-left"><img
+                                            src="https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg"
+                                            alt=""/></a>
                                         <div class="media-body">
                                             <div class="media-content">
                                                 <h6><span>March 12, 2013</span> Thomas guttenberg</h6>
@@ -77,7 +82,9 @@
                                 </div>
                             </div>
                             <div class="media">
-                                <a href="#" class="thumbnail pull-left"><img src="img/avatar.png" alt=""/></a>
+                                <a href="#" class="thumbnail pull-left"><img
+                                    src=" https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg"
+                                    alt=""/></a>
                                 <div class="media-body">
                                     <div class="media-content">
                                         <h6><span>March 12, 2013</span> Vicky lumora</h6>
@@ -132,14 +139,21 @@
         components: {BlogSidebar},
         computed: {
             singlepost() {
-                console.log('singlepost', this.$store.getters.singlepost)
                 return this.$store.getters.singlepost
             }
         },
-        methods: {},
+        methods: {
+            singlePost() {
+                this.$store.dispatch('getPostbyId', this.$route.params.id);
+            }
+        },
         mounted() {
-            console.log('singlepost', this.$router.params);
-            this.$store.dispatch('getPostbyId', this.$route.params.id);
+             this.singlePost();
+        },
+        watch: {
+            $route(to, from) {
+                this.singlePost();
+            }
         }
     }
 </script>

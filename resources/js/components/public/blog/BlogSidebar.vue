@@ -12,7 +12,7 @@
                     <h5 class="widgetheading">Categories</h5>
                     <ul class="cat">
                         <li v-for="category in allcategories">
-                            <i class="icon-angle-right"></i><a href="#">{{category.cat_name}}</a>
+                            <i class="icon-angle-right"></i><router-link :to="`/category/${category.id}`" >{{category.cat_name}}</router-link>
                             <span> (20)</span>
                         </li>
 
@@ -24,7 +24,7 @@
                         <li v-for="(post, index) in latestpost">
                             <img style="height:65px; width: 65px" :src="`./uploadimage/${post.photo}`" class="pull-left"
                                  alt=""/>
-                            <h6><a href="#">{{post.title}}</a></h6>
+                            <h6><router-link :to="`/blog/${post.id}`">{{post.title}}</router-link></h6>
                             <p>
                                 {{post.description | sortlength(30,'...')}}
                             </p>

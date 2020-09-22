@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Flattern - Flat and trendy bootstrap site template</title>
+    <title>My blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
@@ -313,12 +313,6 @@
                                     <span>&copy; Flattern - All right reserved.</span>
                                 </p>
                                 <div class="credits">
-                                    <!--
-                                      All the links in the footer should remain intact.
-                                      You can delete the links only if you purchased the pro version.
-                                      Licensing information: https://bootstrapmade.com/license/
-                                      Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Flattern
-                                    -->
                                     Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
                                 </div>
                             </div>

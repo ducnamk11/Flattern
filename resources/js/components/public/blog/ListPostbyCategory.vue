@@ -1,5 +1,5 @@
 <template>
-    <div id="blogpost">
+    <div id="listpostbycategory">
         <section id="inner-headline">
             <div class="container">
                 <div class="row">
@@ -22,7 +22,7 @@
             <div class="container">
                 <div class="row">
                     <div class="span8">
-                        <article v-for=" post in blogpost">
+                        <article v-for=" post in listPost">
                             <div class="row">
                                 <div class="span8">
                                     <div class="post-image">
@@ -30,19 +30,23 @@
                                             <h3><a href="#">{{post.title}}</a></h3>
                                         </div>
                                         <img style="width: 800px ;  height: 200px"
-                                            :src=" `/uploadimage/${post.photo}`" alt=""/>
+                                             :src=" `/uploadimage/${post.photo}`" alt=""/>
                                     </div>
+                                    blogpost
                                     <p>
                                         {{post.description | sortlength(100,'...')}}
                                     </p>
                                     <div class="bottom-article">
                                         <ul class="meta-post">
                                             <li><i class="icon-calendar"></i><a href="#"> {{post.created_at}}</a></li>
-                                            <li  v-if="post.user"><i class="icon-user"></i><a href="#"> {{post.user.name}}</a></li>
-                                            <li v-if="post.category"><i class="icon-folder-open"></i><a href="#"> {{post.category.cat_name}}</a></li>
+                                            <li v-if="post.user"><i class="icon-user"></i><a href="#">
+                                                {{post.user.name}}</a></li>
+                                            <li v-if="post.category"><i class="icon-folder-open"></i><a href="#">
+                                                {{post.category.cat_name}}</a></li>
                                             <li><i class="icon-comments"></i><a href="#">4 Comments</a></li>
                                         </ul>
-                                        <router-link :to="`category/${post.id}`" class="pull-right">Continue reading <i class="icon-angle-right"></i></router-link>
+                                        <router-link :to="`/blog/${post.id}`" class="pull-right">Continue reading <i
+                                            class="icon-angle-right"></i></router-link>
                                     </div>
                                 </div>
                             </div>
@@ -67,33 +71,27 @@
     import BlogSidebar from "./BlogSidebar";
 
     export default {
-        name: "BlogPost",
+        name: "ListPostbyCategory",
         components: {BlogSidebar},
-        data() {
-            return {
-                id: '',
+        computed: {
+            listPost() {
+                return this.$store.getters.listpostbycategory;
             }
-
+        },
+        methods: {
+            getListPost() {
+                this.$store.dispatch('getPostByCategory', this.$route.params.id)
+            }
         },
         mounted() {
-            this.$store.dispatch('getblogPost')
+            this.getListPost()
         },
-        computed: {
-            blogpost() {
-                console.log('computed-blogpost',this.$store.getters.getblogPost)
-                return this.$store.getters.getblogPost
+        watch: {
+            $route(to, from) {
+                this.getListPost();
             }
-        },
-        // methods: {
-        //     getAllPostByCatId(){
-        //         this.$store.dispatch('getPostByCatId', this.$route.params.id)
-        //     }
-        // },
-        // watch: {
-        //     $route(to, from) {
-        //         this.getAllPostByCatId();
-        //     }
-        // }
+        }
+
     }
 </script>
 
