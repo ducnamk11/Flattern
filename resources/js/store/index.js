@@ -3,10 +3,11 @@ export default {
         category: [],
         post: [],
         blogpost: [],
-        singlepost : [],
+        singlepost: [],
         allcategory: [],
         latestpost: [],
         listpostbycategory: [],
+        search: [],
 
     },
     getters: {
@@ -30,6 +31,9 @@ export default {
         },
         listpostbycategory(state) {
             return state.listpostbycategory
+        },
+        search(state) {
+            return state.search
         }
 
     },
@@ -73,24 +77,25 @@ export default {
         allcategories(context) {
             axios.get('/categories')
                 .then((res) => {
-                    console.log('categories', res.data)
                     context.commit('allcategories', res.data.categories);
-
-                })
-                .catch((err) => {
-
                 })
         },
-        latestpost(context){
+        latestpost(context) {
             axios.get('/latestpost')
-                .then((res)=>{
+                .then((res) => {
                     context.commit('getLatestPost', res.data.latestpost)
                 })
         },
-        getPostByCategory(context,payload){
-            axios.get('/listpostbycategory/'+payload)
-                .then((res)=>{
+        getPostByCategory(context, payload) {
+            axios.get('/listpostbycategory/' + payload)
+                .then((res) => {
                     context.commit('getpostbycategory', res.data.getpostbycategory)
+                })
+        },
+        searchPost(context, payload) {
+            axios.get('/search?result=' + payload)
+                .then((res) => {
+                    context.commit('getSearchPost', res.data.posts)
                 })
         }
 
@@ -117,7 +122,9 @@ export default {
         getpostbycategory(state, payload) {
             return state.listpostbycategory = payload
         },
-
+        getSearchPost(state, payload) {
+            state.blogpost = payload
+        },
     },
 
 }

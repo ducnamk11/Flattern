@@ -22,8 +22,8 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|min:2|max:50',
-            'description' => 'required|min:2|max:1000'
+            'title' => 'required|min:2|max:400',
+            'description' => 'required|min:2'
         ]);
         $strpos = strpos($request->photo, ';');
         $sub = substr($request->photo, 0, $strpos);
@@ -56,8 +56,8 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $this->validate($request, [
-            'title' => 'required|min:2|max:50',
-            'description' => 'required|min:2|max:1000'
+            'title' => 'required|min:2|max:450',
+            'description' => 'required|min:2'
         ]);
 
         if ($request->photo != $post->photo) {

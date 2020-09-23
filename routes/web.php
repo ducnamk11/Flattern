@@ -21,8 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::group(['middleware' => ['auth']], function () {
-
+Route::group(['middleware' => ['auth']], function () {
 //CATEGORY
     Route::post('/add-category', 'CategoryController@store');
     Route::get('/category', 'CategoryController@index');
@@ -35,16 +34,15 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/delete/{id}', 'PostController@delete');
     Route::get('/post/{id}', 'PostController@edit');
     Route::post('/update/{id}', 'PostController@update');
-    //Blog
-    Route::get('/blogpost', 'BlogController@get_all_blog_post');
-    Route::get('/singlepost/{id}', 'BlogController@get_post_by_id');
-    Route::get('/categories', 'BlogController@get_all_categories');
-    Route::get('/latestpost', 'BlogController@get_latest_post');
-    Route::get('/listpostbycategory/{id}', 'BlogController@get_post_by_category');
-//});
 
+});
 
-
-
+//Blog
+Route::get('/blogpost', 'BlogController@get_all_blog_post');
+Route::get('/singlepost/{id}', 'BlogController@get_post_by_id');
+Route::get('/categories', 'BlogController@get_all_categories');
+Route::get('/latestpost', 'BlogController@get_latest_post');
+Route::get('/listpostbycategory/{id}', 'BlogController@get_post_by_category');
+Route::get('/search', 'BlogController@search');
 
 

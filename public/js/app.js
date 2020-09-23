@@ -4997,6 +4997,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -5046,8 +5048,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "BlogSidebar",
+  data: function data() {
+    return {
+      keyword: ''
+    };
+  },
   computed: {
     allcategories: function allcategories() {
       return this.$store.getters.allcategory;
@@ -5059,6 +5071,11 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.$store.dispatch('allcategories');
     this.$store.dispatch('latestpost');
+  },
+  methods: {
+    search: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function () {
+      this.$store.dispatch('searchPost', this.keyword);
+    }, 30)
   }
 });
 
@@ -89225,7 +89242,7 @@ var render = function() {
                               "router-link",
                               {
                                 staticClass: "pull-right",
-                                attrs: { to: "category/" + post.id }
+                                attrs: { to: "/blog/" + post.id }
                               },
                               [
                                 _vm._v("Continue reading "),
@@ -89338,7 +89355,47 @@ var render = function() {
   return _c("div", { attrs: { id: "sidebar" } }, [
     _c("div", { staticClass: "span4" }, [
       _c("aside", { staticClass: "right-sidebar" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "widget" }, [
+          _c("form", { staticClass: "form-search" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.keyword,
+                  expression: "keyword"
+                }
+              ],
+              staticClass: "input-medium search-query",
+              attrs: { placeholder: "Type something", type: "text" },
+              domProps: { value: _vm.keyword },
+              on: {
+                keyup: _vm.search,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.keyword = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-square btn-theme",
+                attrs: { type: "submit" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.search()
+                  }
+                }
+              },
+              [_vm._v("Search")]
+            )
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "widget" }, [
           _c("h5", { staticClass: "widgetheading" }, [_vm._v("Categories")]),
@@ -89351,6 +89408,7 @@ var render = function() {
                 "li",
                 [
                   _c("i", { staticClass: "icon-angle-right" }),
+                  _vm._v(" "),
                   _c(
                     "router-link",
                     { attrs: { to: "/category/" + category.id } },
@@ -89405,34 +89463,12 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(1)
+        _vm._m(0)
       ])
     ])
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "widget" }, [
-      _c("form", { staticClass: "form-search" }, [
-        _c("input", {
-          staticClass: "input-medium search-query",
-          attrs: { placeholder: "Type something", type: "text" }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-square btn-theme",
-            attrs: { type: "submit" }
-          },
-          [_vm._v("Search")]
-        )
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -107687,7 +107723,8 @@ __webpack_require__.r(__webpack_exports__);
     singlepost: [],
     allcategory: [],
     latestpost: [],
-    listpostbycategory: []
+    listpostbycategory: [],
+    search: []
   },
   getters: {
     getCategory: function getCategory(state) {
@@ -107710,6 +107747,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     listpostbycategory: function listpostbycategory(state) {
       return state.listpostbycategory;
+    },
+    search: function search(state) {
+      return state.search;
     }
   },
   actions: {
@@ -107736,9 +107776,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     allcategories: function allcategories(context) {
       axios.get('/categories').then(function (res) {
-        console.log('categories', res.data);
         context.commit('allcategories', res.data.categories);
-      })["catch"](function (err) {});
+      });
     },
     latestpost: function latestpost(context) {
       axios.get('/latestpost').then(function (res) {
@@ -107748,6 +107787,11 @@ __webpack_require__.r(__webpack_exports__);
     getPostByCategory: function getPostByCategory(context, payload) {
       axios.get('/listpostbycategory/' + payload).then(function (res) {
         context.commit('getpostbycategory', res.data.getpostbycategory);
+      });
+    },
+    searchPost: function searchPost(context, payload) {
+      axios.get('/search?result=' + payload).then(function (res) {
+        context.commit('getSearchPost', res.data.posts);
       });
     }
   },
@@ -107772,6 +107816,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     getpostbycategory: function getpostbycategory(state, payload) {
       return state.listpostbycategory = payload;
+    },
+    getSearchPost: function getSearchPost(state, payload) {
+      state.blogpost = payload;
     }
   }
 });
